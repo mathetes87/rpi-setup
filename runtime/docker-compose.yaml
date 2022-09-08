@@ -25,3 +25,12 @@ services:
       - SPOTIFY_NAME=Raspotify
     network_mode: "host"
     restart: always
+
+  earnapp:
+    image: fazalfarhan01/earnapp
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ./etc:/etc/earnapp
+    environment:
+      - EARNAPP_UUID=sdk-node-f6a6c5b3
