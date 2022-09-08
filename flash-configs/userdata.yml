@@ -1,0 +1,18 @@
+#cloud-config
+# vim: syntax=yaml
+#
+hostname: rpi
+manage_etc_hosts: true
+
+users:
+  - name: mathetes
+    gecos: "Mathetes Porne"
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    groups: users,docker,video
+    plain_text_passwd: 2112
+    lock_passwd: false
+    ssh_pwauth: true
+    chpasswd: { expire: false }
+
+package_upgrade: false
