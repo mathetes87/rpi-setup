@@ -2,8 +2,8 @@
 Raspberry Pi setup for home entertainment.
 
 TODO
-https://gist.github.com/exocode/36f9412532055275f2aed81cd157602a
-
+- https://gist.github.com/exocode/36f9412532055275f2aed81cd157602a
+- https://www.reddit.com/r/Piracy/comments/cuzmro/guide_how_to_set_up_docker_containers_to/ (see comments!)
 
 ## Flash HypriotOS for easy docker and docker-compose setup
 1. Insert SD card
@@ -35,3 +35,4 @@ Setup Raspberry Pi 2b with HypriotOS with the following
 - [raspotify](https://github.com/flaviostutz/rpi-spotify)
 - [earnapp](https://hub.docker.com/r/fazalfarhan01/earnapp)
 - [plex](https://hub.docker.com/r/linuxserver/plex)
+- 
