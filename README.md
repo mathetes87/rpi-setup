@@ -15,6 +15,6 @@ Setup Raspberry Pi 2b with Raspberry OS with the following
 - Install docker, docker-compose and utilities
 - Run the following
   - [portainer](https://github.com/portainer/portainer)
-  - [raspotify]()
-  - [earnapp]()
-  - [plex]()
+  - [raspotify](https://github.com/flaviostutz/rpi-spotify)
+  - [earnapp](https://hub.docker.com/r/fazalfarhan01/earnapp)
+  - [plex](https://hub.docker.com/r/linuxserver/plex)
