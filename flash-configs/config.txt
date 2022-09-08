@@ -1,2 +1,2 @@
 max_usb_current=1
-hdmi_force_hotplug=1
+dtparam=audio=on
