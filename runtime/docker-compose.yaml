@@ -16,7 +16,6 @@ services:
       - 9000:9000
       - 80:9000
 
-
   raspotify:
     image: flaviostutz/rpi-spotify:1.6.1
     devices:
@@ -34,3 +33,30 @@ services:
       - ./etc:/etc/earnapp
     environment:
       - EARNAPP_UUID=sdk-node-f6a6c5b3
+
+  plex:
+    image: linuxserver/plex:bionic-1.22.3.4523-d0ce30438-ls30
+    restart: unless-stopped
+    container_name: plex
+    ports:
+      - 32400:32400/tcp
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+
+    environment:
+      #- PUID=${PUID}
+      #- PGID=${PGID}
+      #- TZ=Santiago/Chile
+      #- PLEX_CLAIM=claim-mathetes
+      - HOSTNAME=”PlexServer”
+
+    volumes:
+      - ./plexms/config:/config
+      - ./plexms/transcodes:/transcode
+      - ./plexms/media:/media
