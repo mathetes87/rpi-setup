@@ -4,6 +4,7 @@ Raspberry Pi setup for home entertainment.
 TODO
 - https://gist.github.com/exocode/36f9412532055275f2aed81cd157602a
 - https://www.reddit.com/r/Piracy/comments/cuzmro/guide_how_to_set_up_docker_containers_to/ (see comments!)
+- Bobarr https://github.com/iam4x/bobarr
 
 ## Flash HypriotOS for easy docker and docker-compose setup
 1. Insert SD card
