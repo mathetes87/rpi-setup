@@ -2,7 +2,7 @@ version: '3'
 
 services:
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ce:2.15.1
     container_name: portainer
     restart: unless-stopped
     security_opt:
@@ -27,17 +27,28 @@ services:
     restart: always
     network_mode: host
 
-  earnapp:
-    image: fazalfarhan01/earnapp
-    container_name: earnapp
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ./etc:/etc/earnapp
+  # TODO configure with env vars
+  syncthing:
+    image: funkyfuture/rpi-syncthing
+    container_name: syncthing
+    hostname: syncthing #optional
     environment:
-      - EARNAPP_UUID=sdk-node-f6a6c5b3
-    networks:
-      - caddy
+      - UID=1000
+      - GID=1000
+      - USER_NAME=mathetes
+      - GUI_PASSWORD_PLAIN=2112
+      - GUI_USERNAME=mathetes
+      # - GUI_ADDRESS=[::]:8384
+    volumes:
+      - /media/syncthing/appdata/config:/syncthing/config
+      - /media/syncthing/data:/syncthing/data
+    ports:
+      - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    restart: unless-stopped
+
 
   # transmission:
   #   image: linuxserver/transmission
@@ -57,58 +68,59 @@ services:
   #   networks:
   #     - caddy
 
-  plex:
-    image: greensheep/plex-server-docker-rpi:latest
-    restart: unless-stopped
-    container_name: plex
-    ports:
-      - 32400:32400/tcp
-      - 3005:3005/tcp
-      - 8324:8324/tcp
-      - 32469:32469/tcp
-      - 1900:1900/udp
-      - 32410:32410/udp
-      - 32412:32412/udp
-      - 32413:32413/udp
-      - 32414:32414/udp
+  # plex:
+  #   image: greensheep/plex-server-docker-rpi:latest
+  #   restart: unless-stopped
+  #   container_name: plex
+  #   ports:
+  #     - 32400:32400/tcp
+  #     - 3005:3005/tcp
+  #     - 8324:8324/tcp
+  #     - 32469:32469/tcp
+  #     - 1900:1900/udp
+  #     - 32410:32410/udp
+  #     - 32412:32412/udp
+  #     - 32413:32413/udp
+  #     - 32414:32414/udp
 
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Santiago # Your current timezone
-      - PLEX_CLAIM=claim-abGqqUeyeUewcN_5q58y
-      - HOSTNAME=”PlexServer”
-      - SYSCALL_MAX_ENABLED=1
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Santiago # Your current timezone
+  #     - PLEX_CLAIM=claim-abGqqUeyeUewcN_5q58y
+  #     - HOSTNAME=”PlexServer”
+  #     - SYSCALL_MAX_ENABLED=1
 
-    volumes:
-      - /media/HDD/.plex/config:/config
-      - /media/HDD/.plex/transcodes:/transcode
-      - /media/HDD/.plex/
-      - /media/HDD/media:/media
-    networks:
-      - caddy
+  #   volumes:
+  #     - /media/HDD/.plex/config:/config
+  #     - /media/HDD/.plex/transcodes:/transcode
+  #     - /media/HDD/.plex/
+  #     - /media/HDD/media:/media
+  #   networks:
+  #     - caddy
 
-  caddy:
-    image: caddy:alpine
-    container_name: caddy
-    ports:
-      - 80:80
-      - 443:443
-    environment:
-      - CADDY_INGRESS_NETWORKS=caddy
-    networks:
-      - caddy
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      # - $PWD/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
-    restart: unless-stopped
 
-volumes:
-  caddy_data:
-    external: true
-  caddy_config:
+  # caddy:
+  #   image: caddy:alpine
+  #   container_name: caddy
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   environment:
+  #     - CADDY_INGRESS_NETWORKS=caddy
+  #   networks:
+  #     - caddy
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile
+  #     # - $PWD/site:/srv
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+  #   restart: unless-stopped
+
+# volumes:
+#   caddy_data:
+#     external: true
+#   caddy_config:
 
 
 networks:
