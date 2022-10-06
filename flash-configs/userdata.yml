@@ -9,7 +9,7 @@ users:
     gecos: "Mathetes Porne"
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
-    groups: users,docker,video
+    groups: users,docker,video,root
     plain_text_passwd: 2112
     lock_passwd: false
     ssh_pwauth: true
