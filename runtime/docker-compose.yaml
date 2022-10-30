@@ -49,57 +49,37 @@ services:
       - 21027:21027/udp
     restart: unless-stopped
 
+  emby:
+    image: emby/embyserver_arm32v7
+    container_name: emby
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Santiago
+    volumes:
+      - /media/HDD/.emby/_data:/config
+      - /media/HDD/media:/Media
+    ports:
+      - 8096:8096
+      - 8920:8920
+    restart: unless-stopped
 
-  # transmission:
-  #   image: linuxserver/transmission
-  #   container_name: transmission
-  #   environment:
-  #     - PUID=1000 # User id
-  #     - PGID=1000 # Group id
-  #     - TZ=America/Santiago # Your current timezone
-  #   volumes:
-  #     - /media/HDD/.transmission:/config # Change this to your docker config folder
-  #     - /media/HDD/media/:/download # Change this to your download folder
-  #   ports:
-  #     - 9091:9091 # Web UI port
-  #     - 51413:51413 # Torrent port (TCP)
-  #     - 51413:51413/udp # Torrent port (UDP)
-  #   restart: unless-stopped # This makes sure that the application restarts when it crashes
-  #   networks:
-  #     - caddy
-
-  # plex:
-  #   image: greensheep/plex-server-docker-rpi:latest
-  #   restart: unless-stopped
-  #   container_name: plex
-  #   ports:
-  #     - 32400:32400/tcp
-  #     - 3005:3005/tcp
-  #     - 8324:8324/tcp
-  #     - 32469:32469/tcp
-  #     - 1900:1900/udp
-  #     - 32410:32410/udp
-  #     - 32412:32412/udp
-  #     - 32413:32413/udp
-  #     - 32414:32414/udp
-
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Santiago # Your current timezone
-  #     - PLEX_CLAIM=claim-abGqqUeyeUewcN_5q58y
-  #     - HOSTNAME=”PlexServer”
-  #     - SYSCALL_MAX_ENABLED=1
-
-  #   volumes:
-  #     - /media/HDD/.plex/config:/config
-  #     - /media/HDD/.plex/transcodes:/transcode
-  #     - /media/HDD/.plex/
-  #     - /media/HDD/media:/media
-  #   networks:
-  #     - caddy
-
-
+  transmission:
+    image: jaymoulin/transmission
+    container_name: transmission
+    environment:
+      - PUID=1000 # User id
+      - PGID=1000 # Group id
+      - TZ=America/Santiago # Your current timezone
+    volumes:
+      - /media/HDD/.transmission/to_download:/to_download # Change this to your docker config folder
+      - /media/HDD/media/:/output # Change this to your download folder
+    ports:
+      - 9091:9091 # Web UI port
+      - 12345:12345 # Torrent port (TCP)
+      - 12345:12345/udp # Torrent port (UDP)
+    restart: unless-stopped # This makes sure that the application restarts when it crashes
   # caddy:
   #   image: caddy:alpine
   #   container_name: caddy
@@ -117,10 +97,10 @@ services:
   #     - caddy_config:/config
   #   restart: unless-stopped
 
-# volumes:
-#   caddy_data:
-#     external: true
-#   caddy_config:
+  # volumes:
+  #   caddy_data:
+  #     external: true
+  #   caddy_config:
 
 
 networks:
