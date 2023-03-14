@@ -38,8 +38,7 @@ services:
     environment:
       - FB_BASEURL=/filebrowser
     ports:
-      - 32768:8080
-      - 443:8080
+      - 8080:8080
     volumes:
       - /mnt/media/media:/data
       - /mnt/media/.config/filebrowser:/config
