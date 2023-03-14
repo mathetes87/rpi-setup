@@ -25,7 +25,7 @@ services:
       - TZ=America/Santiago
     volumes:
       - /mnt/media/.config/emby:/config
-      - /mnt/media/media/media:/Media
+      - /mnt/media/media:/Media
     ports:
       - 8096:8096
       - 8920:8920
