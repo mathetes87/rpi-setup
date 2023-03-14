@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:2.15.1
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./portainer-data:/data
+    command: --admin-password '$$2y$$05$$cEhcu84AGRy5X7E6cxfBrOj0G3k563gPNB67fjjAFUYYCAoqdQznW'
+    ports:
+      - 9000:9000
+
+  emby:
+    image: emby/embyserver_arm32v7
+    container_name: emby
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Santiago
+    volumes:
+      - /mnt/media/media/.emby/_data:/config
+      - /mnt/media/media/media:/Media
+    ports:
+      - 8096:8096
+      - 8920:8920
+    restart: unless-stopped
+
+  filebrowser:
+    image: hurlenko/filebrowser
+    user: "1000:1000"
+    container_name: filebrowser
+    environment:
+      - FB_BASEURL=/filebrowser
+    ports:
+      - 32768:8080
+      - 443:8080
+    volumes:
+      - /mnt/media/media:/data
+      - /mnt/media/.config/filebrowser:/config
+    restart: unless-stopped
