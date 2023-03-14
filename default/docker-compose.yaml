@@ -24,7 +24,7 @@ services:
       - PGID=1000
       - TZ=America/Santiago
     volumes:
-      - /mnt/media/media/.emby/_data:/config
+      - /mnt/media/.config/emby:/config
       - /mnt/media/media/media:/Media
     ports:
       - 8096:8096
@@ -33,7 +33,7 @@ services:
 
   filebrowser:
     image: hurlenko/filebrowser
-    user: "1000:1000"
+    user: mathetes
     container_name: filebrowser
     environment:
       - FB_BASEURL=/filebrowser
