@@ -33,7 +33,7 @@ services:
 
   filebrowser:
     image: hurlenko/filebrowser
-    user: "1000:1000"
+    user: mathetes
     container_name: filebrowser
     environment:
       - FB_BASEURL=/filebrowser
